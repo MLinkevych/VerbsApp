@@ -1,0 +1,10 @@
+warning: in the working copy of 'app.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+app.json
+eas.json
+package-lock.json
+package.json
+src/components/QuizPerformanceSection.tsx
+src/components/VideoProgressSection.tsx
+src/hooks/useProgressData.ts
