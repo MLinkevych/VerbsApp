@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icons/verbs_icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -30,18 +29,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      [
-        "expo-dev-client",
-        {
-          "launchMode": "most-recent"
-        }
-      ]
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "648f3b7f-e06c-4c0f-aa8b-c28ee01c2da5"
-      }
-    }
+    "plugins": []
   }
 }
