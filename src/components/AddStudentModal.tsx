@@ -99,11 +99,7 @@ const AddStudentModal: React.FC<Props> = ({ visible, onClose, onAddStudent, teac
           <View style={styles.placeholder} />
           <Text style={styles.title}>Add New Student</Text>
           <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
-            <Image 
-              source={require('../../assets/tech_icons/icon_close_x.png')} 
-              style={styles.closeIcon} 
-              resizeMode="contain" 
-            />
+            <Ionicons name="close-outline" size={24} color="#007AFF" />
           </TouchableOpacity>
         </View>
 

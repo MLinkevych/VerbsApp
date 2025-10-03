@@ -238,11 +238,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       </View>
 
               <View style={styles.teacherActions}>
-          <Image
-            source={require('../../assets/tech_icons/icon_minus.png')}
-            style={styles.actionIcon}
-            resizeMode="contain"
-          />
+          <Ionicons name="remove-outline" size={24} color="#007AFF" />
           <Text style={styles.longPressHint}>Hold to delete</Text>
         </View>
     </TouchableOpacity>
@@ -285,7 +281,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
       <View style={styles.addTeacherContainer}>
         <TouchableOpacity style={styles.addTeacherButton} onPress={() => setShowAddTeacher(true)}>
-          <Image source={require('../../assets/tech_icons/icon_plus.png')} style={styles.buttonIcon} resizeMode="contain" />
+          <Ionicons name="add-outline" size={24} color="#fff" />
           <Text style={styles.addTeacherText}>Add New Teacher</Text>
         </TouchableOpacity>
       </View>

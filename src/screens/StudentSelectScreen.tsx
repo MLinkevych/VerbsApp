@@ -151,7 +151,7 @@ const StudentSelectScreen: React.FC<Props> = ({ navigation }) => {
         <Text style={styles.studentName}>{item.name}</Text>
       </View>
       <View style={styles.studentActions}>
-        <Image source={require('../../assets/tech_icons/icon_minus.png')} style={styles.actionIcon} resizeMode="contain" />
+        <Ionicons name="remove-outline" size={24} color="#007AFF" />
         <Text style={styles.longPressHint}>Hold to delete</Text>
       </View>
     </TouchableOpacity>
@@ -235,7 +235,7 @@ const StudentSelectScreen: React.FC<Props> = ({ navigation }) => {
             style={styles.addStudentButton} 
             onPress={() => setShowAddStudent(true)}
           >
-            <Image source={require('../../assets/tech_icons/icon_plus.png')} style={styles.buttonIcon} resizeMode="contain" />
+            <Ionicons name="add-outline" size={24} color="#fff" />
             <Text style={styles.addStudentText}>Add New Student</Text>
           </TouchableOpacity>
         </View>

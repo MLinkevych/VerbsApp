@@ -30,6 +30,10 @@ const customCategoryIcons: { [key: string]: any } = {
   open: require('../../assets/icons/open_icon.png'),
   draw: require('../../assets/icons/draw_icon.png'),
   play: require('../../assets/icons/play_icon.png'),
+  blow: require('../../assets/icons/blow_icon.png'),
+  clap: require('../../assets/icons/clap_icon.png'),
+  run: require('../../assets/icons/run_icon.png'),
+  wash: require('../../assets/icons/wash_icon.png'),
   __quiz__: require('../../assets/icons/quiz_icon.png'),
 };
 
@@ -108,6 +112,9 @@ const CategoriesScreen: React.FC<Props> = ({ navigation }) => {
       open: 'folder-open',
       water: 'water',
       brush: 'brush',
+      wind: 'leaf',
+      'hand-left': 'hand-left',
+      walk: 'walk',
     };
     return iconMap[iconName] || 'help';
   };

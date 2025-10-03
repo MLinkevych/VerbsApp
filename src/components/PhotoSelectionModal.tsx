@@ -143,11 +143,7 @@ const PhotoSelectionModal: React.FC<Props> = ({
               style={styles.closeButton}
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             >
-              <Image
-                source={require('../../assets/tech_icons/icon_close_x.png')}
-                style={styles.headerCloseIcon}
-                resizeMode="contain"
-              />
+              <Ionicons name="close-outline" size={24} color="#007AFF" />
             </TouchableOpacity>
           </View>
 
@@ -193,11 +189,7 @@ const PhotoSelectionModal: React.FC<Props> = ({
           <View style={styles.placeholder} />
           <Text style={styles.title}>Change Photo</Text>
           <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Image 
-              source={require('../../assets/tech_icons/icon_close_x.png')} 
-              style={[styles.closeIcon, { tintColor: '#007AFF' }]} 
-              resizeMode="contain" 
-            />
+            <Ionicons name="close-outline" size={24} color="#007AFF" />
           </TouchableOpacity>
         </View>
 
@@ -234,11 +226,7 @@ const PhotoSelectionModal: React.FC<Props> = ({
                 <Text style={styles.optionTitle}>Select from Gallery</Text>
                 <Text style={styles.optionDescription}>Choose a photo from your device</Text>
               </View>
-              <Image 
-                source={require('../../assets/tech_icons/icon_plus.png')} 
-                style={[styles.optionChevronIcon, { tintColor: '#007AFF' }]} 
-                resizeMode="contain" 
-              />
+              <Ionicons name="add-outline" size={24} color="#007AFF" />
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.optionButton} onPress={() => setShowInternalGallery(true)}>
@@ -246,11 +234,7 @@ const PhotoSelectionModal: React.FC<Props> = ({
                 <Text style={styles.optionTitle}>Choose from Icons</Text>
                 <Text style={styles.optionDescription}>Select from our collection of icons</Text>
               </View>
-              <Image 
-                source={require('../../assets/tech_icons/icon_plus.png')} 
-                style={[styles.optionChevronIcon, { tintColor: '#4CAF50' }]} 
-                resizeMode="contain" 
-              />
+              <Ionicons name="add-outline" size={24} color="#4CAF50" />
             </TouchableOpacity>
 
             {currentPhoto && (
@@ -259,11 +243,7 @@ const PhotoSelectionModal: React.FC<Props> = ({
                   <Text style={[styles.optionTitle, styles.deleteText]}>Remove Photo</Text>
                   <Text style={styles.optionDescription}>Remove current photo and leave blank</Text>
                 </View>
-                <Image 
-                  source={require('../../assets/tech_icons/icon_minus.png')} 
-                  style={[styles.optionChevronIcon, { tintColor: '#FF3B30' }]} 
-                  resizeMode="contain" 
-                />
+                <Ionicons name="remove-outline" size={24} color="#FF3B30" />
               </TouchableOpacity>
             )}
           </View>

@@ -337,6 +337,7 @@ const QuizScreen: React.FC<Props> = ({ navigation, route }) => {
     'Eat/cat_eating.mp4': require('../../assets/Eat/cat_eating.mp4'),
     'Eat/girl_eating.mp4': require('../../assets/Eat/girl_eating.mp4'),
     'Eat/boy_eating.mp4': require('../../assets/Eat/boy_eating.mp4'),
+    'Eat/oldman_eating.mp4': require('../../assets/Eat/oldman_eating.mp4'),
     'Eat/woman_eating.mp4': require('../../assets/Eat/woman_eating.mp4'),
     
     // Drink category videos
@@ -344,6 +345,7 @@ const QuizScreen: React.FC<Props> = ({ navigation, route }) => {
     'Drink/cat_drinking.mp4': require('../../assets/Drink/cat_drinking.mp4'),
     'Drink/girl_drinking.mp4': require('../../assets/Drink/girl_drinking.mp4'),
     'Drink/boy_drinking.mp4': require('../../assets/Drink/boy_drinking.mp4'),
+    'Drink/oldman_drinking.mp4': require('../../assets/Drink/oldman_drinking.mp4'),
     'Drink/woman_drinking.mp4': require('../../assets/Drink/woman_drinking.mp4'),
     
     // Sleep category videos
@@ -351,6 +353,7 @@ const QuizScreen: React.FC<Props> = ({ navigation, route }) => {
     'Sleep/cat_sleeping.mp4': require('../../assets/Sleep/cat_sleeping.mp4'),
     'Sleep/girl_sleeping.mp4': require('../../assets/Sleep/girl_sleeping.mp4'),
     'Sleep/boy_sleeping.mp4': require('../../assets/Sleep/boy_sleeping.mp4'),
+    'Sleep/oldman_sleeping.mp4': require('../../assets/Sleep/oldman_sleeping.mp4'),
     'Sleep/woman_sleeping.mp4': require('../../assets/Sleep/woman_sleeping.mp4'),
     
     // Open category videos
@@ -358,6 +361,7 @@ const QuizScreen: React.FC<Props> = ({ navigation, route }) => {
     'Open/cat_opening.mp4': require('../../assets/Open/cat_opening.mp4'),
     'Open/girl_opening.mp4': require('../../assets/Open/girl_opening.mp4'),
     'Open/boy_opening.mp4': require('../../assets/Open/boy_opening.mp4'),
+    'Open/oldman_opening.mp4': require('../../assets/Open/oldman_opening.mp4'),
     'Open/woman_opening.mp4': require('../../assets/Open/woman_opening.mp4'),
     
     // Draw category videos
@@ -365,6 +369,7 @@ const QuizScreen: React.FC<Props> = ({ navigation, route }) => {
     'Draw/cat_drawing.mp4': require('../../assets/Draw/cat_drawing.mp4'),
     'Draw/girl_drawing.mp4': require('../../assets/Draw/girl_drawing.mp4'),
     'Draw/boy_drawing.mp4': require('../../assets/Draw/boy_drawing.mp4'),
+    'Draw/oldman_drawing.mp4': require('../../assets/Draw/oldman_drawing.mp4'),
     'Draw/woman_drawing.mp4': require('../../assets/Draw/woman_drawing.mp4'),
     
     // Play category videos
@@ -372,7 +377,40 @@ const QuizScreen: React.FC<Props> = ({ navigation, route }) => {
     'Play/cat_playing.mp4': require('../../assets/Play/cat_playing.mp4'),
     'Play/girl_playing.mp4': require('../../assets/Play/girl_playing.mp4'),
     'Play/boy_playing.mp4': require('../../assets/Play/boy_playing.mp4'),
+    'Play/oldman_playing.mp4': require('../../assets/Play/oldman_playing.mp4'),
     'Play/woman_playing.mp4': require('../../assets/Play/woman_playing.mp4'),
+    
+    // Blow category videos
+    'Blow/dog_blowing.mp4': require('../../assets/Blow/dog_blowing.mp4'),
+    'Blow/cat_blowing.mp4': require('../../assets/Blow/cat_blowing.mp4'),
+    'Blow/girl_blowing.mp4': require('../../assets/Blow/girl_blowing.mp4'),
+    'Blow/boy_blowing.mp4': require('../../assets/Blow/boy_blowing.mp4'),
+    'Blow/oldman_blowing.mp4': require('../../assets/Blow/oldman_blowing.mp4'),
+    'Blow/woman_blowing.mp4': require('../../assets/Blow/woman_blowing.mp4'),
+    
+    // Clap category videos
+    'Clap/dog_clapping.mp4': require('../../assets/Clap/dog_clapping.mp4'),
+    'Clap/cat_clapping.mp4': require('../../assets/Clap/cat_clapping.mp4'),
+    'Clap/girl_clapping.mp4': require('../../assets/Clap/girl_clapping.mp4'),
+    'Clap/boy_clapping.mp4': require('../../assets/Clap/boy_clapping.mp4'),
+    'Clap/oldman_clapping.mp4': require('../../assets/Clap/oldman_clapping.mp4'),
+    'Clap/woman_clapping.mp4': require('../../assets/Clap/woman_clapping.mp4'),
+    
+    // Run category videos
+    'Run/dog_running.mp4': require('../../assets/Run/dog_running.mp4'),
+    'Run/cat_running.mp4': require('../../assets/Run/cat_running.mp4'),
+    'Run/girl_running.mp4': require('../../assets/Run/girl_running.mp4'),
+    'Run/boy_running.mp4': require('../../assets/Run/boy_running.mp4'),
+    'Run/oldman_running.mp4': require('../../assets/Run/oldman_running.mp4'),
+    'Run/woman_running.mp4': require('../../assets/Run/woman_running.mp4'),
+    
+    // Wash category videos
+    'Wash/dog_washing.mp4': require('../../assets/Wash/dog_washing.mp4'),
+    'Wash/cat_washing.mp4': require('../../assets/Wash/cat_washing.mp4'),
+    'Wash/girl_washing.mp4': require('../../assets/Wash/girl_washing.mp4'),
+    'Wash/boy_washing.mp4': require('../../assets/Wash/boy_washing.mp4'),
+    'Wash/oldman_washing.mp4': require('../../assets/Wash/oldman_washing.mp4'),
+    'Wash/woman_washing.mp4': require('../../assets/Wash/woman_washing.mp4'),
   };
 
   // Audio assets for quiz feedback

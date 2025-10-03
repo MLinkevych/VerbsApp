@@ -16,12 +16,6 @@ import { RouteProp } from '@react-navigation/native';
 import { Video as ExpoVideo, Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 
-const icons = {
-  play:   require('../../assets/icons/play_icon.png'),
-  soundOn: require('../../assets/tech_icons/icon_sound_on.png'),
-  soundOff: require('../../assets/tech_icons/icon_soud_off.png'),
-};
-
 import { RootStackParamList, Video, Category, UserProgress } from '../types';
 import dataService from '../utils/dataService';
 
@@ -50,6 +44,10 @@ const audioAssets: { [key: string]: any } = {
   'open_1level': require('../../assets/Open/1level/opening_1level.mp3'),
   'draw_1level': require('../../assets/Draw/1level/drawing_1level.mp3'),
   'play_1level': require('../../assets/Play/1level/playing_1level.mp3'),
+  'blow_1level': require('../../assets/Blow/1level/blowing_1level.mp3'),
+  'clap_1level': require('../../assets/Clap/1level/clapping_1level.mp3'),
+  'run_1level': require('../../assets/Run/1level/running_1level.mp3'),
+  'wash_1level': require('../../assets/Wash/1level/washing_1level.mp3'),
   
   // Level 2 audios - all character combinations
   // Boy audios
@@ -92,6 +90,14 @@ const audioAssets: { [key: string]: any } = {
   'woman_draw_2level': require('../../assets/Draw/2level/woman_drawing_2level.mp3'),
   'woman_play_2level': require('../../assets/Play/2level/woman_playing_2level.mp3'),
   
+  // Oldman audios for level 2
+  'oldman_eat_2level': require('../../assets/Eat/2level/oldman_eating_2level.mp3'),
+  'oldman_drink_2level': require('../../assets/Drink/2level/oldman_drinking_2level.mp3'),
+  'oldman_sleep_2level': require('../../assets/Sleep/2level/oldman_sleeping_2level.mp3'),
+  'oldman_open_2level': require('../../assets/Open/2level/oldman_opening_2level.mp3'),
+  'oldman_draw_2level': require('../../assets/Draw/2level/oldman_drawing_2level.mp3'),
+  'oldman_play_2level': require('../../assets/Play/2level/oldman_playing_2level.mp3'),
+  
   // Level 3 audios - all character combinations
   // Boy audios
   'boy_eat_3level': require('../../assets/Eat/3level/boy_eating_3level.mp3'),
@@ -132,6 +138,80 @@ const audioAssets: { [key: string]: any } = {
   'woman_open_3level': require('../../assets/Open/3level/woman_opening_3level.mp3'),
   'woman_draw_3level': require('../../assets/Draw/3level/woman_drawing_3level.mp3'),
   'woman_play_3level': require('../../assets/Play/3level/woman_playing_3level.mp3'),
+  
+  // Oldman audios for level 3
+  'oldman_eat_3level': require('../../assets/Eat/3level/oldman_eating_3level.mp3'),
+  'oldman_drink_3level': require('../../assets/Drink/3level/oldman_drinking_3level.mp3'),
+  'oldman_sleep_3level': require('../../assets/Sleep/3level/oldman_sleeping_3level.mp3'),
+  'oldman_open_3level': require('../../assets/Open/3level/oldman_opening_3level.mp3'),
+  'oldman_draw_3level': require('../../assets/Draw/3level/oldman_drawing_3level.mp3'),
+  'oldman_play_3level': require('../../assets/Play/3level/oldman_playing_3level.mp3'),
+  
+  // New categories - Level 2 audios
+  // Blow category level 2
+  'boy_blow_2level': require('../../assets/Blow/2level/boy_blowing_2level.mp3'),
+  'girl_blow_2level': require('../../assets/Blow/2level/girl_blowing_2level.mp3'),
+  'dog_blow_2level': require('../../assets/Blow/2level/dog_blowing_2level.mp3'),
+  'cat_blow_2level': require('../../assets/Blow/2level/cat_blowing_2level.mp3'),
+  'oldman_blow_2level': require('../../assets/Blow/2level/oldman_blowing_2level.mp3'),
+  'woman_blow_2level': require('../../assets/Blow/2level/woman_blowing_2level.mp3'),
+  
+  // Clap category level 2
+  'boy_clap_2level': require('../../assets/Clap/2level/boy_clapping_2level.mp3'),
+  'girl_clap_2level': require('../../assets/Clap/2level/girl_clapping_2level.mp3'),
+  'dog_clap_2level': require('../../assets/Clap/2level/dog_clapping_2level.mp3'),
+  'cat_clap_2level': require('../../assets/Clap/2level/cat_clapping_2level.mp3'),
+  'oldman_clap_2level': require('../../assets/Clap/2level/oldman_clapping_2level.mp3'),
+  'woman_clap_2level': require('../../assets/Clap/2level/woman_clapping_2level.mp3'),
+  
+  // Run category level 2
+  'boy_run_2level': require('../../assets/Run/2level/boy_running_2level.mp3'),
+  'girl_run_2level': require('../../assets/Run/2level/girl_running_2level.mp3'),
+  'dog_run_2level': require('../../assets/Run/2level/dog_running_2level.mp3'),
+  'cat_run_2level': require('../../assets/Run/2level/cat_running_2level.mp3'),
+  'oldman_run_2level': require('../../assets/Run/2level/oldman_running_2level.mp3'),
+  'woman_run_2level': require('../../assets/Run/2level/woman_running_2level.mp3'),
+  
+  // Wash category level 2
+  'boy_wash_2level': require('../../assets/Wash/2level/boy_washing_2level.mp3'),
+  'girl_wash_2level': require('../../assets/Wash/2level/girl_washing_2level.mp3'),
+  'dog_wash_2level': require('../../assets/Wash/2level/dog_washing_2level.mp3'),
+  'cat_wash_2level': require('../../assets/Wash/2level/cat_washing_2level.mp3'),
+  'oldman_wash_2level': require('../../assets/Wash/2level/oldman_washing_2level.mp3'),
+  'woman_wash_2level': require('../../assets/Wash/2level/woman_washing_2level.mp3'),
+  
+  // New categories - Level 3 audios
+  // Blow category level 3
+  'boy_blow_3level': require('../../assets/Blow/3level/boy_blowing_3level.mp3'),
+  'girl_blow_3level': require('../../assets/Blow/3level/girl_blowing_3level.mp3'),
+  'dog_blow_3level': require('../../assets/Blow/3level/dog_blowing_3level.mp3'),
+  'cat_blow_3level': require('../../assets/Blow/3level/cat_blowing_3level.mp3'),
+  'oldman_blow_3level': require('../../assets/Blow/3level/oldman_blowing_3level.mp3'),
+  'woman_blow_3level': require('../../assets/Blow/3level/woman_blowing_3level.mp3'),
+  
+  // Clap category level 3
+  'boy_clap_3level': require('../../assets/Clap/3level/boy_clapping_3level.mp3'),
+  'girl_clap_3level': require('../../assets/Clap/3level/girl_clapping_3level.mp3'),
+  'dog_clap_3level': require('../../assets/Clap/3level/dog_clapping_3level.mp3'),
+  'cat_clap_3level': require('../../assets/Clap/3level/cat_clapping_3level.mp3'),
+  'oldman_clap_3level': require('../../assets/Clap/3level/oldman_clapping_3level.mp3'),
+  'woman_clap_3level': require('../../assets/Clap/3level/woman_clapping_3level.mp3'),
+  
+  // Run category level 3
+  'boy_run_3level': require('../../assets/Run/3level/boy_running_3level.mp3'),
+  'girl_run_3level': require('../../assets/Run/3level/girl_running_3level.mp3'),
+  'dog_run_3level': require('../../assets/Run/3level/dog_running_3level.mp3'),
+  'cat_run_3level': require('../../assets/Run/3level/cat_running_3level.mp3'),
+  'oldman_run_3level': require('../../assets/Run/3level/oldman_running_3level.mp3'),
+  'woman_run_3level': require('../../assets/Run/3level/woman_running_3level.mp3'),
+  
+  // Wash category level 3
+  'boy_wash_3level': require('../../assets/Wash/3level/boy_washing_3level.mp3'),
+  'girl_wash_3level': require('../../assets/Wash/3level/girl_washing_3level.mp3'),
+  'dog_wash_3level': require('../../assets/Wash/3level/dog_washing_3level.mp3'),
+  'cat_wash_3level': require('../../assets/Wash/3level/cat_washing_3level.mp3'),
+  'oldman_wash_3level': require('../../assets/Wash/3level/oldman_washing_3level.mp3'),
+  'woman_wash_3level': require('../../assets/Wash/3level/woman_washing_3level.mp3'),
 };
 
 const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
@@ -149,6 +229,8 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
   const [isSoundEnabled, setIsSoundEnabled] = useState(true);
   const [selectedLevel, setSelectedLevel] = useState(1);
+  const [videoFinished, setVideoFinished] = useState(false);
+  const [audioPaused, setAudioPaused] = useState(false);
   
   const videoRef = useRef<ExpoVideo>(null);
   const audioRef = useRef<Audio.Sound | null>(null);
@@ -226,6 +308,28 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
       }
     } catch (error) {
       console.error('Error stopping audio:', error);
+    }
+  };
+
+  const pauseAudio = async () => {
+    try {
+      if (audioRef.current) {
+        await audioRef.current.pauseAsync();
+        setAudioPaused(true);
+      }
+    } catch (error) {
+      console.error('Error pausing audio:', error);
+    }
+  };
+
+  const resumeAudio = async () => {
+    try {
+      if (audioRef.current && audioPaused) {
+        await audioRef.current.playAsync();
+        setAudioPaused(false);
+      }
+    } catch (error) {
+      console.error('Error resuming audio:', error);
     }
   };
 
@@ -404,6 +508,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
           'Eat/cat_eating.mp4': require('../../assets/Eat/cat_eating.mp4'),
           'Eat/girl_eating.mp4': require('../../assets/Eat/girl_eating.mp4'),
           'Eat/boy_eating.mp4': require('../../assets/Eat/boy_eating.mp4'),
+          'Eat/oldman_eating.mp4': require('../../assets/Eat/oldman_eating.mp4'),
           'Eat/woman_eating.mp4': require('../../assets/Eat/woman_eating.mp4'),
           
           // Drink category videos
@@ -411,6 +516,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
           'Drink/cat_drinking.mp4': require('../../assets/Drink/cat_drinking.mp4'),
           'Drink/girl_drinking.mp4': require('../../assets/Drink/girl_drinking.mp4'),
           'Drink/boy_drinking.mp4': require('../../assets/Drink/boy_drinking.mp4'),
+          'Drink/oldman_drinking.mp4': require('../../assets/Drink/oldman_drinking.mp4'),
           'Drink/woman_drinking.mp4': require('../../assets/Drink/woman_drinking.mp4'),
           
           // Sleep category videos
@@ -418,6 +524,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
           'Sleep/cat_sleeping.mp4': require('../../assets/Sleep/cat_sleeping.mp4'),
           'Sleep/girl_sleeping.mp4': require('../../assets/Sleep/girl_sleeping.mp4'),
           'Sleep/boy_sleeping.mp4': require('../../assets/Sleep/boy_sleeping.mp4'),
+          'Sleep/oldman_sleeping.mp4': require('../../assets/Sleep/oldman_sleeping.mp4'),
           'Sleep/woman_sleeping.mp4': require('../../assets/Sleep/woman_sleeping.mp4'),
           
           // Open category videos
@@ -425,6 +532,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
           'Open/cat_opening.mp4': require('../../assets/Open/cat_opening.mp4'),
           'Open/girl_opening.mp4': require('../../assets/Open/girl_opening.mp4'),
           'Open/boy_opening.mp4': require('../../assets/Open/boy_opening.mp4'),
+          'Open/oldman_opening.mp4': require('../../assets/Open/oldman_opening.mp4'),
           'Open/woman_opening.mp4': require('../../assets/Open/woman_opening.mp4'),
           
           // Draw category videos
@@ -432,6 +540,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
           'Draw/cat_drawing.mp4': require('../../assets/Draw/cat_drawing.mp4'),
           'Draw/girl_drawing.mp4': require('../../assets/Draw/girl_drawing.mp4'),
           'Draw/boy_drawing.mp4': require('../../assets/Draw/boy_drawing.mp4'),
+          'Draw/oldman_drawing.mp4': require('../../assets/Draw/oldman_drawing.mp4'),
           'Draw/woman_drawing.mp4': require('../../assets/Draw/woman_drawing.mp4'),
           
           // Play category videos
@@ -439,7 +548,40 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
           'Play/cat_playing.mp4': require('../../assets/Play/cat_playing.mp4'),
           'Play/girl_playing.mp4': require('../../assets/Play/girl_playing.mp4'),
           'Play/boy_playing.mp4': require('../../assets/Play/boy_playing.mp4'),
+          'Play/oldman_playing.mp4': require('../../assets/Play/oldman_playing.mp4'),
           'Play/woman_playing.mp4': require('../../assets/Play/woman_playing.mp4'),
+          
+          // Blow category videos
+          'Blow/dog_blowing.mp4': require('../../assets/Blow/dog_blowing.mp4'),
+          'Blow/cat_blowing.mp4': require('../../assets/Blow/cat_blowing.mp4'),
+          'Blow/girl_blowing.mp4': require('../../assets/Blow/girl_blowing.mp4'),
+          'Blow/boy_blowing.mp4': require('../../assets/Blow/boy_blowing.mp4'),
+          'Blow/oldman_blowing.mp4': require('../../assets/Blow/oldman_blowing.mp4'),
+          'Blow/woman_blowing.mp4': require('../../assets/Blow/woman_blowing.mp4'),
+          
+          // Clap category videos
+          'Clap/dog_clapping.mp4': require('../../assets/Clap/dog_clapping.mp4'),
+          'Clap/cat_clapping.mp4': require('../../assets/Clap/cat_clapping.mp4'),
+          'Clap/girl_clapping.mp4': require('../../assets/Clap/girl_clapping.mp4'),
+          'Clap/boy_clapping.mp4': require('../../assets/Clap/boy_clapping.mp4'),
+          'Clap/oldman_clapping.mp4': require('../../assets/Clap/oldman_clapping.mp4'),
+          'Clap/woman_clapping.mp4': require('../../assets/Clap/woman_clapping.mp4'),
+          
+          // Run category videos
+          'Run/dog_running.mp4': require('../../assets/Run/dog_running.mp4'),
+          'Run/cat_running.mp4': require('../../assets/Run/cat_running.mp4'),
+          'Run/girl_running.mp4': require('../../assets/Run/girl_running.mp4'),
+          'Run/boy_running.mp4': require('../../assets/Run/boy_running.mp4'),
+          'Run/oldman_running.mp4': require('../../assets/Run/oldman_running.mp4'),
+          'Run/woman_running.mp4': require('../../assets/Run/woman_running.mp4'),
+          
+          // Wash category videos
+          'Wash/dog_washing.mp4': require('../../assets/Wash/dog_washing.mp4'),
+          'Wash/cat_washing.mp4': require('../../assets/Wash/cat_washing.mp4'),
+          'Wash/girl_washing.mp4': require('../../assets/Wash/girl_washing.mp4'),
+          'Wash/boy_washing.mp4': require('../../assets/Wash/boy_washing.mp4'),
+          'Wash/oldman_washing.mp4': require('../../assets/Wash/oldman_washing.mp4'),
+          'Wash/woman_washing.mp4': require('../../assets/Wash/woman_washing.mp4'),
         };
         
         // Check if the video asset exists
@@ -464,6 +606,8 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
             await videoRef.current.setPositionAsync(0);
             await videoRef.current.playAsync();
             setIsPlaying(true);
+            setVideoFinished(false); // Reset finished state for new video
+            setAudioPaused(false); // Reset audio pause state for new video
             // Start audio playback
             playAudioForVideo();
           }
@@ -479,6 +623,10 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const handleVideoComplete = async () => {
     const currentVideo = videos[currentVideoIndex];
+    
+    // Mark video as finished
+    setVideoFinished(true);
+    setAudioPaused(false); // Reset audio pause state when video completes
   
     // mark watched
     const newWatchedVideos = watchedVideos.includes(currentVideo.id)
@@ -514,21 +662,19 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
         setTimeout(() => {
           setIsPausing(false);
           setCurrentVideoIndex(nextIndex);
-        }, 1000);
+        }, 5000);
       }
     } else {
-      // SINGLE video behavior: close immediately
+      // SINGLE video behavior: don't auto-close, wait for Exit button
       try {
         if (videoRef.current) {
           await videoRef.current.pauseAsync();
-          await videoRef.current.unloadAsync();
         }
       } catch {}
       setIsPlaying(false);
       setIsPausing(false);
       setAllVideosWatched(false);
-      setShowVideoPlayer(false);
-      setIsSequenceMode(false);
+      // Don't close the video player automatically for single videos
     }
   };
   
@@ -616,6 +762,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
   // };
 
   const handleSkip = () => {
+    console.log('Next button pressed');
     if (currentVideoIndex < videos.length - 1) {
       // Manual skip - advance to next video regardless of mode
       const nextIndex = currentVideoIndex + 1;
@@ -644,7 +791,17 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
     }
   };
 
+  const handlePrevious = () => {
+    console.log('Back button pressed');
+    if (currentVideoIndex > 0) {
+      // Go to previous video
+      const prevIndex = currentVideoIndex - 1;
+      setCurrentVideoIndex(prevIndex);
+    }
+  };
+
   const handleStop = async () => {
+    console.log('Exit button pressed');
     if (videoRef.current) {
       try { await videoRef.current.pauseAsync(); await videoRef.current.unloadAsync(); } catch {}
     }
@@ -668,6 +825,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
   // };
 
   const handleExitToGrid = async () => {
+    console.log('Back button pressed');
     if (videoRef.current) {
       try { await videoRef.current.pauseAsync(); await videoRef.current.unloadAsync(); } catch {}
     }
@@ -690,6 +848,75 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
   //   setIsPausing(false);
   // };
 
+  // Function to get learning cards based on level and video
+  const getLearningCards = (filename: string, level: number) => {
+    const cards: any[] = [];
+    
+    if (level === 1) {
+      // Level 1: Show action card only
+      const category = filename.split('/')[0].toLowerCase();
+      const actionCardMap: { [key: string]: any } = {
+        'eat': require('../../assets/Learn_cards/eating-1.png'),
+        'drink': require('../../assets/Learn_cards/drinking-1.png'),
+        'sleep': require('../../assets/Learn_cards/sleeping-2.png'), // Using sleeping-2 as it's available
+        'open': require('../../assets/Learn_cards/opening-1.png'),
+        'draw': require('../../assets/Learn_cards/drawing-1.png'),
+        'play': require('../../assets/Learn_cards/learn_playing.png'),
+        'blow': require('../../assets/Learn_cards/eating-1.png'), // Fallback, no blow-1 available
+        'clap': require('../../assets/Learn_cards/eating-1.png'), // Fallback, no clap-1 available
+        'run': require('../../assets/Learn_cards/eating-1.png'), // Fallback, no run-1 available
+        'wash': require('../../assets/Learn_cards/eating-1.png'), // Fallback, no wash-1 available
+      };
+      
+      const actionCard = actionCardMap[category];
+      if (actionCard) {
+        cards.push(actionCard);
+      }
+    } else if (level === 2) {
+      // Level 2: Show character card above action card
+      const character = filename.split('/')[1]?.split('_')[0];
+      const category = filename.split('/')[0].toLowerCase();
+      
+      // Character cards
+      const characterCardMap: { [key: string]: any } = {
+        'boy': require('../../assets/Learn_cards/boy-2.png'),
+        'girl': require('../../assets/Learn_cards/girl-2.png'),
+        'dog': require('../../assets/Learn_cards/dog-2.png'),
+        'cat': require('../../assets/Learn_cards/cat-2.png'),
+        'woman': require('../../assets/Learn_cards/woman-2.png'),
+        'oldman': require('../../assets/Learn_cards/oldman-2.png'),
+        'man': require('../../assets/Learn_cards/man-2.png'),
+        'oldwoman': require('../../assets/Learn_cards/oldwoman-2.png'),
+      };
+      
+      // Action cards
+      const actionCardMap: { [key: string]: any } = {
+        'eat': require('../../assets/Learn_cards/eating-1.png'),
+        'drink': require('../../assets/Learn_cards/drinking-1.png'),
+        'sleep': require('../../assets/Learn_cards/sleeping-2.png'),
+        'open': require('../../assets/Learn_cards/opening-1.png'),
+        'draw': require('../../assets/Learn_cards/drawing-1.png'),
+        'play': require('../../assets/Learn_cards/learn_playing.png'),
+        'blow': require('../../assets/Learn_cards/eating-1.png'), // Fallback
+        'clap': require('../../assets/Learn_cards/eating-1.png'), // Fallback
+        'run': require('../../assets/Learn_cards/eating-1.png'), // Fallback
+        'wash': require('../../assets/Learn_cards/eating-1.png'), // Fallback
+      };
+      
+      // Add character card first (will be on top)
+      if (character && characterCardMap[character]) {
+        cards.push(characterCardMap[character]);
+      }
+      
+      // Add action card second (will be below)
+      if (actionCardMap[category]) {
+        cards.push(actionCardMap[category]);
+      }
+    }
+    
+    return cards;
+  };
+
   // Function to get video thumbnail images
   const getVideoThumbnail = (filename: string) => {
     const thumbnailMap: { [key: string]: any } = {
@@ -698,6 +925,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
       'Eat/cat_eating.mp4': require('../../assets/Eat/cat_eating.jpg'),
       'Eat/girl_eating.mp4': require('../../assets/Eat/girl_eating.jpg'),
       'Eat/boy_eating.mp4': require('../../assets/Eat/boy_eating.jpg'),
+      'Eat/oldman_eating.mp4': require('../../assets/Eat/oldman_eating.jpg'),
       'Eat/woman_eating.mp4': require('../../assets/Eat/woman_eating.jpg'),
       
       // Drink category thumbnails
@@ -705,6 +933,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
       'Drink/cat_drinking.mp4': require('../../assets/Drink/cat_drinking.jpg'),
       'Drink/girl_drinking.mp4': require('../../assets/Drink/girl_drinking.jpg'),
       'Drink/boy_drinking.mp4': require('../../assets/Drink/boy_drinking.jpg'),
+      'Drink/oldman_drinking.mp4': require('../../assets/Drink/oldman_drinking.jpg'),
       'Drink/woman_drinking.mp4': require('../../assets/Drink/woman_drinking.jpg'),
       
       // Sleep category thumbnails
@@ -712,6 +941,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
       'Sleep/cat_sleeping.mp4': require('../../assets/Sleep/cat_sleeping.jpg'),
       'Sleep/girl_sleeping.mp4': require('../../assets/Sleep/girl_sleeping.jpg'),
       'Sleep/boy_sleeping.mp4': require('../../assets/Sleep/boy_sleeping.jpg'),
+      'Sleep/oldman_sleeping.mp4': require('../../assets/Sleep/oldman_sleeping.jpg'),
       'Sleep/woman_sleeping.mp4': require('../../assets/Sleep/woman_sleeping.jpg'),
       
       // Open category thumbnails
@@ -719,6 +949,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
       'Open/cat_opening.mp4': require('../../assets/Open/cat_opening.jpg'),
       'Open/girl_opening.mp4': require('../../assets/Open/girl_opening.jpg'),
       'Open/boy_opening.mp4': require('../../assets/Open/boy_opening.jpg'),
+      'Open/oldman_opening.mp4': require('../../assets/Open/oldman_opening.jpg'),
       'Open/woman_opening.mp4': require('../../assets/Open/woman_opening.jpg'),
       
       // Draw category thumbnails
@@ -726,6 +957,7 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
       'Draw/cat_drawing.mp4': require('../../assets/Draw/cat_drawing.jpg'),
       'Draw/girl_drawing.mp4': require('../../assets/Draw/girl_drawing.jpg'),
       'Draw/boy_drawing.mp4': require('../../assets/Draw/boy_drawing.jpg'),
+      'Draw/oldman_drawing.mp4': require('../../assets/Draw/oldman_drawing.jpg'),
       'Draw/woman_drawing.mp4': require('../../assets/Draw/woman_drawing.jpg'),
       
       // Play category thumbnails
@@ -733,7 +965,40 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
       'Play/cat_playing.mp4': require('../../assets/Play/cat_playing.jpg'),
       'Play/girl_playing.mp4': require('../../assets/Play/girl_playing.jpg'),
       'Play/boy_playing.mp4': require('../../assets/Play/boy_playing.jpg'),
+      'Play/oldman_playing.mp4': require('../../assets/Play/oldman_playing.jpg'),
       'Play/woman_playing.mp4': require('../../assets/Play/woman_playing.jpg'),
+      
+      // Blow category thumbnails
+      'Blow/dog_blowing.mp4': require('../../assets/Blow/dog_blowing.jpg'),
+      'Blow/cat_blowing.mp4': require('../../assets/Blow/cat_blowing.jpg'),
+      'Blow/girl_blowing.mp4': require('../../assets/Blow/girl_blowing.jpg'),
+      'Blow/boy_blowing.mp4': require('../../assets/Blow/boy_blowing.jpg'),
+      'Blow/oldman_blowing.mp4': require('../../assets/Blow/oldman_blowing.jpg'),
+      'Blow/woman_blowing.mp4': require('../../assets/Blow/woman_blowing.jpg'),
+      
+      // Clap category thumbnails
+      'Clap/dog_clapping.mp4': require('../../assets/Clap/dog_clapping.jpg'),
+      'Clap/cat_clapping.mp4': require('../../assets/Clap/cat_clapping.jpg'),
+      'Clap/girl_clapping.mp4': require('../../assets/Clap/girl_clapping.jpg'),
+      'Clap/boy_clapping.mp4': require('../../assets/Clap/boy_clapping.jpg'),
+      'Clap/oldman_clapping.mp4': require('../../assets/Clap/oldman_clapping.jpg'),
+      'Clap/woman_clapping.mp4': require('../../assets/Clap/woman_clapping.jpg'),
+      
+      // Run category thumbnails
+      'Run/dog_running.mp4': require('../../assets/Run/dog_running.jpg'),
+      'Run/cat_running.mp4': require('../../assets/Run/cat_running.jpg'),
+      'Run/girl_running.mp4': require('../../assets/Run/girl_running.jpg'),
+      'Run/boy_running.mp4': require('../../assets/Run/boy_running.jpg'),
+      'Run/oldman_running.mp4': require('../../assets/Run/oldman_running.jpg'),
+      'Run/woman_running.mp4': require('../../assets/Run/woman_running.jpg'),
+      
+      // Wash category thumbnails
+      'Wash/dog_washing.mp4': require('../../assets/Wash/dog_washing.jpg'),
+      'Wash/cat_washing.mp4': require('../../assets/Wash/cat_washing.jpg'),
+      'Wash/girl_washing.mp4': require('../../assets/Wash/girl_washing.jpg'),
+      'Wash/boy_washing.mp4': require('../../assets/Wash/boy_washing.jpg'),
+      'Wash/oldman_washing.mp4': require('../../assets/Wash/oldman_washing.jpg'),
+      'Wash/woman_washing.mp4': require('../../assets/Wash/woman_washing.jpg'),
     };
     
     return thumbnailMap[filename];
@@ -786,24 +1051,30 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
       {/* Header */}
       <View style={styles.header}>
         
+        {/* Level Description */}
+        <View style={styles.levelDescriptionContainer}>
+          <Text style={styles.levelDescriptionText}>
+            1 Level - Verb + Learning cards{'\n'}
+            2 Level - Verb+Noun + Learning cards{'\n'}
+            3 Level - Verb+Noun+Subjective
+          </Text>
+        </View>
+        
         {/* Audio Controls */}
         <View style={styles.audioControlsContainer}>
-          <TouchableOpacity
-            style={[styles.audioControlButton, isSoundEnabled && styles.audioControlButtonActive]}
-            onPress={() => setIsSoundEnabled(!isSoundEnabled)}
-          >
-            <Image 
-              source={isSoundEnabled ? icons.soundOn : icons.soundOff}
-              style={[
-                { width: 16, height: 16 },
-                { tintColor: "#fff" }
-              ]}
-              resizeMode="contain"
-            />
-            <Text style={[styles.audioControlText, isSoundEnabled && styles.audioControlTextActive]}>
-              Sound {isSoundEnabled ? 'On' : 'Off'}
-            </Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+  style={[styles.audioControlButton, isSoundEnabled && styles.audioControlButtonActive]}
+  onPress={() => setIsSoundEnabled(!isSoundEnabled)}
+>
+  <Ionicons 
+    name={isSoundEnabled ? "volume-high-outline" : "volume-mute-outline"}   // Ionicons names
+    size={24}                                               // make it bigger
+    color="#fff"
+  />
+  <Text style={[styles.audioControlText, isSoundEnabled && styles.audioControlTextActive]}>
+    {isSoundEnabled ? 'On' : 'Off'}
+  </Text>
+</TouchableOpacity>
           
           <TouchableOpacity
             style={[styles.audioControlButton, selectedLevel === 1 && styles.audioControlButtonActive]}
@@ -866,34 +1137,15 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
                     <Ionicons name="person" size={40} color="#007AFF" />
                   </View>
                 )}
-                <View style={styles.thumbnailOverlay}>
-                  {/* <Ionicons 
-                    name={watchedVideos.includes(video.id) ? 'checkmark-circle' : 'play-circle'} 
-                    size={20} 
-                    color={
-                      watchedVideos.includes(video.id) 
-                        ? '#4CAF50' 
-                        : '#fff'
-                    } 
-                  /> */}
-                <View style={styles.thumbnailOverlay}>
-  <PlayBadge size={20} />
-</View>
-                </View>
+
+
                 {isPausing && index === currentVideoIndex && (
                   <View style={styles.countdownOverlay}>
                     <Text style={styles.pauseCountdown}>Next in 3s...</Text>
                   </View>
                 )}
               </View>
-              {/* <Text style={[
-                styles.videoGridText,
-                index === currentVideoIndex && styles.currentVideoText,
-                watchedVideos.includes(video.id) && styles.watchedVideoText,
-              ]}>
-                {video.title}
-              </Text> */}
-              {/* <Text style={styles.videoOrderText}>#{video.order}</Text> */}
+
             </TouchableOpacity>
           ))}
         </View>
@@ -911,16 +1163,10 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
   }}
   style={styles.mainControlButton}
 >
-  <Image source={require('../../assets/tech_icons/icon_play.png')} style={styles.buttonIcon} resizeMode="contain" />
+  <Ionicons name="play-outline" size={28} color="#fff" style={{ marginRight: 8 }} />
   <Text style={styles.mainControlText}>Play all videos</Text>
 </TouchableOpacity>
 
-  {/* {allVideosWatched && (
-    <TouchableOpacity onPress={() => navigation.navigate('Quiz', { categoryId })} style={styles.quizButton}>
-      <Ionicons name="help-circle" size={24} color="#fff" />
-      <Text style={styles.quizButtonText}>Take Quiz</Text>
-    </TouchableOpacity>
-  )} */}
 </View>
 
       {/* Video Player Modal */}
@@ -931,18 +1177,23 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
         onRequestClose={handleExitToGrid}
       >
         <SafeAreaView style={styles.modalContainer}>
-          {/* Modal Header */}
-          {/* <View style={styles.modalHeader}>
-          <TouchableOpacity onPress={handleExitToGrid} style={styles.modalBackButton}>
-  <View style={{ marginRight: 8 }}><ReturnBadge size={16} /></View>
-  <Text style={styles.modalBackText}>Back to Category</Text>
-</TouchableOpacity> */}
 
-            {/* <Text style={styles.modalTitle} numberOfLines={1}>{currentVideo?.title}</Text> */}
-          {/* </View> */}
-
-          {/* Video Player */}
           <View style={styles.modalVideoContainer}>
+            {/* Learning Cards Container */}
+            <View style={[
+              styles.learningCardsContainer,
+              selectedLevel === 1 && styles.learningCardsContainerLevel1
+            ]}>
+              {getLearningCards(currentVideo?.filename || '', selectedLevel).map((card, index) => (
+                <Image
+                  key={index}
+                  source={card}
+                  style={styles.learningCard}
+                  resizeMode="contain"
+                />
+              ))}
+            </View>
+            
             <ExpoVideo
               ref={videoRef}
               style={styles.modalVideo}
@@ -959,46 +1210,10 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
             />
 
             {/* Video Overlay with Play Button */}
-{!isPlaying && !isPausing && !allVideosWatched && (
-  <View style={styles.videoOverlay}>
-    <TouchableOpacity
-      style={styles.playOverlayButton}
-      onPress={async () => {
-        if (videoRef.current) {
-          try { await videoRef.current.playAsync(); setIsPlaying(true); playAudioForVideo(); } catch {}
-        }
-      }}
-    >
-      <PlayBadge size={40} />
-    </TouchableOpacity>
-  </View>
-)}
-
-            {/* {!isPlaying && !isPausing && !allVideosWatched && (
-              <View style={styles.videoOverlay}>
-                <TouchableOpacity 
-                  style={styles.playOverlayButton}
-                  onPress={async () => {
-                    if (videoRef.current) {
-                      try {
-                        await videoRef.current.playAsync();
-                        setIsPlaying(true);
-                        // Start audio playback
-                        playAudioForVideo();
-                      } catch (error) {
-                        console.error('Error starting video:', error);
-                      }
-                    }
-                  }}
-                >
-                  <Ionicons name="play-circle" size={40} color="#fff" />
-                </TouchableOpacity>
-              </View>
-            )} */}
-            
+        
             {isPausing && (
               <View style={styles.pauseOverlay}>
-                <Text style={styles.pauseText}>Next video in 1 second...</Text>
+                <Text style={styles.pauseText}>Next video in 5 seconds...</Text>
               </View>
             )}
             
@@ -1012,51 +1227,86 @@ const VideoSequenceScreen: React.FC<Props> = ({ navigation, route }) => {
 
           {/* Modal Controls */}
           <View style={styles.modalControls}>
-            {/* Back button first from left */}
+            {/* Back button */}
             <TouchableOpacity
-              onPress={handleExitToGrid}
-              style={styles.modalControlButton}
+              onPress={handlePrevious}
+              style={[
+                styles.modalControlButton,
+                currentVideoIndex <= 0 && styles.modalControlButtonDisabled
+              ]}
+              disabled={currentVideoIndex <= 0}
               hitSlop={{ top: 12, right: 12, bottom: 12, left: 12 }}
             >
-              <Image source={require('../../assets/tech_icons/icon_back.png')} style={styles.controlIcon} resizeMode="contain" />
-              <Text style={styles.modalControlText}>Back</Text>
+              <Text style={[
+                styles.modalControlText,
+                currentVideoIndex <= 0 && styles.modalControlTextDisabled
+              ]}>Back</Text>
+              <Ionicons name="play-back-outline" size={32} color="#fff" style={{ marginTop: 4 }} />
             </TouchableOpacity>
 
-            {/* Pause/Play */}
+            {/* Next button */}
+            <TouchableOpacity 
+              onPress={handleSkip} 
+              style={[
+                styles.modalControlButton,
+                currentVideoIndex >= videos.length - 1 && styles.modalControlButtonDisabled
+              ]}
+              disabled={currentVideoIndex >= videos.length - 1}
+            >
+              <Text style={[
+                styles.modalControlText,
+                currentVideoIndex >= videos.length - 1 && styles.modalControlTextDisabled
+              ]}>Next</Text>
+              <Ionicons name="play-forward-outline" size={32} color="#fff" style={{ marginTop: 4 }} />
+            </TouchableOpacity>
+
+            {/* Pause/Play button */}
             <TouchableOpacity
               onPress={async () => {
+                console.log('Play/Pause button pressed');
                 if (videoRef.current) {
                   try {
-                    if (isPlaying) { await videoRef.current.pauseAsync(); setIsPlaying(false); }
-                    else { await videoRef.current.playAsync(); setIsPlaying(true); playAudioForVideo(); }
+                    if (isPlaying) { 
+                      await videoRef.current.pauseAsync(); 
+                      await pauseAudio();
+                      setIsPlaying(false); 
+                    } else { 
+                      if (videoFinished) {
+                        // If video is finished, restart from beginning
+                        await videoRef.current.setPositionAsync(0);
+                        setVideoFinished(false);
+                        setAudioPaused(false);
+                        // Start fresh audio for restarted video
+                        playAudioForVideo();
+                      } else if (audioPaused) {
+                        // If audio was paused, resume it
+                        await resumeAudio();
+                      } else {
+                        // First time playing or no audio loaded yet
+                        playAudioForVideo();
+                      }
+                      // Continue playing from current position (or beginning if finished)
+                      await videoRef.current.playAsync(); 
+                      setIsPlaying(true); 
+                    }
                   } catch (e) {}
                 }
               }}
               style={styles.modalControlButton}
             >
-              <Image 
-                source={isPlaying ? 
-                  require('../../assets/tech_icons/icon_pause.png') : 
-                  require('../../assets/tech_icons/icon_play.png')
-                } 
-                style={styles.controlIcon} 
-                resizeMode="contain" 
-              />
-              <Text style={styles.modalControlText}>{isPlaying ? 'Pause' : 'Play'}</Text>
+            <Text style={styles.modalControlText}>{isPlaying ? 'Pause' : 'Play'}</Text>
+            <Ionicons 
+            name={isPlaying ? "pause-outline" : "play-outline"} 
+            size={36} 
+            color="#fff" 
+            style={{ marginTop: 4 }} 
+            />
             </TouchableOpacity>
 
-            {/* Next - now always visible when there's a next video */}
-            {currentVideoIndex < videos.length - 1 && (
-              <TouchableOpacity onPress={handleSkip} style={styles.modalControlButton}>
-                <Image source={require('../../assets/tech_icons/icon_play_next.png')} style={styles.controlIcon} resizeMode="contain" />
-                <Text style={styles.modalControlText}>Next</Text>
-              </TouchableOpacity>
-            )}
-
-            {/* Stop */}
+            {/* Exit button */}
             <TouchableOpacity onPress={handleStop} style={styles.modalControlButton}>
-              <Image source={require('../../assets/tech_icons/icon_stop.png')} style={styles.controlIcon} resizeMode="contain" />
-              <Text style={styles.modalControlText}>Stop</Text>
+            <Text style={styles.modalControlText}>Exit</Text>
+            <Ionicons name="stop-outline" size={32} color="#fff" style={{ marginTop: 4 }} />
             </TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -1192,13 +1442,38 @@ const styles = StyleSheet.create({
   },
   modalVideoContainer: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
     zIndex: 1,
   },
+  learningCardsContainer: {
+    position: 'absolute',
+    left: 40,
+    top: '40%',
+    transform: [{ translateY: -100 }],
+    flexDirection: 'column',
+    alignItems: 'center',
+    zIndex: 10,
+    gap: 40,
+  },
+  learningCardsContainerLevel1: {
+    top: '50%',
+    transform: [{ translateY: -80 }], // Center Level 1 cards vertically
+  },
+  learningCard: {
+    width: 160,  // ← Increased from 80 to 120
+    height: 160, // ← Increased from 80 to 120
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+  },
   modalVideo: {
-    width: width,
+    width: width * 0.7,
     height: width * 0.6,
     zIndex: 1,
   },
@@ -1254,25 +1529,49 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   modalControls: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    position: 'absolute',
+    right: 50,
+    top: '40%',
+    marginTop: -140,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    borderRadius: 12,
+    gap: 10,
+    zIndex: 1000,
   },
   modalControlButton: {
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#007AFF',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     borderRadius: 8,
-    minWidth: 70,
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
   },
   modalControlText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  modalControlButtonDisabled: {
+    backgroundColor: '#6c757d',
+    opacity: 0.6,
+  },
+  modalControlTextDisabled: {
+    color: '#ccc',
+  },
+  controlIconDisabled: {
+    opacity: 0.5,
   },
   modalBackButton: {
     flexDirection: 'row',
@@ -1420,6 +1719,24 @@ const styles = StyleSheet.create({
     height: 22,
     tintColor: '#fff',
     marginBottom: 4,
+  },
+  
+  // Level Description Styles
+  levelDescriptionContainer: {
+    backgroundColor: '#f8f9fa',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    marginBottom: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#e9ecef',
+  },
+  levelDescriptionText: {
+    fontSize: 14,
+    color: '#495057',
+    textAlign: 'center',
+    lineHeight: 20,
+    fontWeight: '500',
   },
   
   // Audio Controls Styles

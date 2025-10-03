@@ -1,0 +1,24 @@
+{
+  "cli": {
+    "version": ">= 5.9.0"
+  },
+  "build": {
+    "testingVerbs": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "testingVerbs2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "testingVerbs3": {
+      "developmentClient": true
+    },
+    "testingVerbs4": {
+      "distribution": "internal"
+    },
+    "production": {}
+  }
+}

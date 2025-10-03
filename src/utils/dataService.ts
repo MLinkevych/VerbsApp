@@ -25,7 +25,7 @@ const STORAGE_KEYS = {
 };
 
 // 🔹 keep these as separate constants (not inside STORAGE_KEYS)
-const SCHEMA_VERSION = '8'; // bump when you change seed data
+const SCHEMA_VERSION = '10'; // bump when you change seed data
 const STORAGE_KEYS_EXTRAS = {
   APP_VERSION: 'appVersion',
 };
@@ -57,6 +57,8 @@ class DataService {
       await this.migrate_v4_to_v5_updateVideoTitles();
       await this.migrate_v5_to_v6_refreshVideoData();
       await this.migrate_v7_to_v8_addPlayCategory();
+      await this.migrate_v8_to_v9_addNewCategories();
+      await this.migrate_v9_to_v10_addOldmanVideos();
       await AsyncStorage.setItem(STORAGE_KEYS_EXTRAS.APP_VERSION, SCHEMA_VERSION);
       console.log('✅ Migration completed successfully');
     } else {
@@ -244,6 +246,409 @@ class DataService {
     }
   }
 
+  // Migration: Add new categories (Blow, Clap, Run, Wash) for v8 to v9
+  private async migrate_v8_to_v9_addNewCategories(): Promise<void> {
+    try {
+      console.log('🔄 Starting migration v8 to v9: Adding new categories...');
+      
+      // Add new categories to existing categories
+      const categoriesRaw = await AsyncStorage.getItem(STORAGE_KEYS.CATEGORIES);
+      console.log('📂 Current categories data:', categoriesRaw);
+      
+      if (categoriesRaw) {
+        const categories: Category[] = JSON.parse(categoriesRaw);
+        console.log('📋 Parsed categories:', categories.map(c => c.id));
+        
+        // Check if new categories already exist
+        const hasBlowCategory = categories.some(cat => cat.id === 'blow');
+        const hasClapCategory = categories.some(cat => cat.id === 'clap');
+        const hasRunCategory = categories.some(cat => cat.id === 'run');
+        const hasWashCategory = categories.some(cat => cat.id === 'wash');
+        
+        console.log('🎈 Blow category exists?', hasBlowCategory);
+        console.log('👏 Clap category exists?', hasClapCategory);
+        console.log('🏃 Run category exists?', hasRunCategory);
+        console.log('🧽 Wash category exists?', hasWashCategory);
+        
+        const newCategories: Category[] = [];
+        
+        if (!hasBlowCategory) {
+          newCategories.push({
+            id: 'blow',
+            name: 'Blow',
+            description: 'Learn about blowing actions',
+            icon: 'leaf',
+            videoCount: 6,
+            unlocked: true
+          });
+        }
+        
+        if (!hasClapCategory) {
+          newCategories.push({
+            id: 'clap',
+            name: 'Clap',
+            description: 'Learn about clapping actions',
+            icon: 'hand-right',
+            videoCount: 6,
+            unlocked: true
+          });
+        }
+        
+        if (!hasRunCategory) {
+          newCategories.push({
+            id: 'run',
+            name: 'Run',
+            description: 'Learn about running actions',
+            icon: 'fitness',
+            videoCount: 6,
+            unlocked: true
+          });
+        }
+        
+        if (!hasWashCategory) {
+          newCategories.push({
+            id: 'wash',
+            name: 'Wash',
+            description: 'Learn about washing actions',
+            icon: 'water-outline',
+            videoCount: 6,
+            unlocked: true
+          });
+        }
+        
+        if (newCategories.length > 0) {
+          categories.push(...newCategories);
+          await AsyncStorage.setItem(STORAGE_KEYS.CATEGORIES, JSON.stringify(categories));
+          console.log('✅ Added', newCategories.length, 'new categories to storage');
+        } else {
+          console.log('⚠️ All new categories already exist, skipping');
+        }
+      } else {
+        console.log('❌ No categories data found in storage');
+      }
+
+      // Add new videos to existing videos
+      const videosRaw = await AsyncStorage.getItem(STORAGE_KEYS.VIDEOS);
+      if (videosRaw) {
+        const videos: Video[] = JSON.parse(videosRaw);
+        console.log('🎬 Current video count:', videos.length);
+        
+        // Check if new videos already exist
+        const hasBlowVideos = videos.some(video => video.categoryId === 'blow');
+        const hasClapVideos = videos.some(video => video.categoryId === 'clap');
+        const hasRunVideos = videos.some(video => video.categoryId === 'run');
+        const hasWashVideos = videos.some(video => video.categoryId === 'wash');
+        
+        console.log('🎈 Blow videos exist?', hasBlowVideos);
+        console.log('👏 Clap videos exist?', hasClapVideos);
+        console.log('🏃 Run videos exist?', hasRunVideos);
+        console.log('🧽 Wash videos exist?', hasWashVideos);
+        
+        const newVideos: Video[] = [];
+        
+        if (!hasBlowVideos) {
+          newVideos.push(
+            { id: 'blow_1', categoryId: 'blow', title: 'Dog', filename: 'Blow/dog_blowing.mp4', duration: 5, order: 1 },
+            { id: 'blow_2', categoryId: 'blow', title: 'Cat', filename: 'Blow/cat_blowing.mp4', duration: 5, order: 2 },
+            { id: 'blow_3', categoryId: 'blow', title: 'Girl', filename: 'Blow/girl_blowing.mp4', duration: 5, order: 3 },
+            { id: 'blow_4', categoryId: 'blow', title: 'Boy', filename: 'Blow/boy_blowing.mp4', duration: 5, order: 4 },
+            { id: 'blow_5', categoryId: 'blow', title: 'Woman', filename: 'Blow/woman_blowing.mp4', duration: 5, order: 5 }
+          );
+        }
+        
+        if (!hasClapVideos) {
+          newVideos.push(
+            { id: 'clap_1', categoryId: 'clap', title: 'Dog', filename: 'Clap/dog_clapping.mp4', duration: 5, order: 1 },
+            { id: 'clap_2', categoryId: 'clap', title: 'Cat', filename: 'Clap/cat_clapping.mp4', duration: 5, order: 2 },
+            { id: 'clap_3', categoryId: 'clap', title: 'Girl', filename: 'Clap/girl_clapping.mp4', duration: 5, order: 3 },
+            { id: 'clap_4', categoryId: 'clap', title: 'Boy', filename: 'Clap/boy_clapping.mp4', duration: 5, order: 4 },
+            { id: 'clap_5', categoryId: 'clap', title: 'Woman', filename: 'Clap/woman_clapping.mp4', duration: 5, order: 5 }
+          );
+        }
+        
+        if (!hasRunVideos) {
+          newVideos.push(
+            { id: 'run_1', categoryId: 'run', title: 'Dog', filename: 'Run/dog_running.mp4', duration: 5, order: 1 },
+            { id: 'run_2', categoryId: 'run', title: 'Cat', filename: 'Run/cat_running.mp4', duration: 5, order: 2 },
+            { id: 'run_3', categoryId: 'run', title: 'Girl', filename: 'Run/girl_running.mp4', duration: 5, order: 3 },
+            { id: 'run_4', categoryId: 'run', title: 'Boy', filename: 'Run/boy_running.mp4', duration: 5, order: 4 },
+            { id: 'run_5', categoryId: 'run', title: 'Woman', filename: 'Run/woman_running.mp4', duration: 5, order: 5 }
+          );
+        }
+        
+        if (!hasWashVideos) {
+          newVideos.push(
+            { id: 'wash_1', categoryId: 'wash', title: 'Dog', filename: 'Wash/dog_washing.mp4', duration: 5, order: 1 },
+            { id: 'wash_2', categoryId: 'wash', title: 'Cat', filename: 'Wash/cat_washing.mp4', duration: 5, order: 2 },
+            { id: 'wash_3', categoryId: 'wash', title: 'Girl', filename: 'Wash/girl_washing.mp4', duration: 5, order: 3 },
+            { id: 'wash_4', categoryId: 'wash', title: 'Boy', filename: 'Wash/boy_washing.mp4', duration: 5, order: 4 },
+            { id: 'wash_5', categoryId: 'wash', title: 'Woman', filename: 'Wash/woman_washing.mp4', duration: 5, order: 5 }
+          );
+        }
+        
+        if (newVideos.length > 0) {
+          videos.push(...newVideos);
+          await AsyncStorage.setItem(STORAGE_KEYS.VIDEOS, JSON.stringify(videos));
+          console.log('✅ Added', newVideos.length, 'new videos to storage');
+        } else {
+          console.log('⚠️ All new videos already exist, skipping');
+        }
+      } else {
+        console.log('❌ No videos data found in storage');
+      }
+
+      // Add new questions to existing questions
+      const questionsRaw = await AsyncStorage.getItem(STORAGE_KEYS.QUESTIONS);
+      if (questionsRaw) {
+        const questions: Question[] = JSON.parse(questionsRaw);
+        console.log('❓ Current question count:', questions.length);
+        
+        // Check if new questions already exist
+        const hasBlowQuestions = questions.some(q => q.categoryId === 'blow');
+        const hasClapQuestions = questions.some(q => q.categoryId === 'clap');
+        const hasRunQuestions = questions.some(q => q.categoryId === 'run');
+        const hasWashQuestions = questions.some(q => q.categoryId === 'wash');
+        
+        console.log('🎈 Blow questions exist?', hasBlowQuestions);
+        console.log('👏 Clap questions exist?', hasClapQuestions);
+        console.log('🏃 Run questions exist?', hasRunQuestions);
+        console.log('🧽 Wash questions exist?', hasWashQuestions);
+        
+        const newQuestions: Question[] = [];
+        
+        if (!hasBlowQuestions) {
+          newQuestions.push(
+            {
+              id: 'q_blow_1',
+              videoId: 'blow_1',
+              categoryId: 'blow',
+              question: 'What action is being performed?',
+              options: [
+                { id: 'opt_1', text: 'Blowing' },
+                { id: 'opt_2', text: 'Clapping' },
+                { id: 'opt_3', text: 'Running' },
+                { id: 'opt_4', text: 'Washing' },
+              ],
+              correctAnswer: 'opt_1',
+              answerFormat: 'text',
+            },
+            {
+              id: 'q_blow_2',
+              videoId: 'blow_2',
+              categoryId: 'blow',
+              question: 'What is this character doing?',
+              options: [
+                { id: 'opt_1', text: 'Blowing air' },
+                { id: 'opt_2', text: 'Drinking water' },
+                { id: 'opt_3', text: 'Eating food' },
+                { id: 'opt_4', text: 'Sleeping' },
+              ],
+              correctAnswer: 'opt_1',
+              answerFormat: 'text',
+            }
+          );
+        }
+        
+        if (!hasClapQuestions) {
+          newQuestions.push(
+            {
+              id: 'q_clap_1',
+              videoId: 'clap_1',
+              categoryId: 'clap',
+              question: 'What action is being performed?',
+              options: [
+                { id: 'opt_1', text: 'Clapping' },
+                { id: 'opt_2', text: 'Blowing' },
+                { id: 'opt_3', text: 'Running' },
+                { id: 'opt_4', text: 'Drawing' },
+              ],
+              correctAnswer: 'opt_1',
+              answerFormat: 'text',
+            },
+            {
+              id: 'q_clap_2',
+              videoId: 'clap_2',
+              categoryId: 'clap',
+              question: 'What is this character doing?',
+              options: [
+                { id: 'opt_1', text: 'Clapping hands' },
+                { id: 'opt_2', text: 'Washing hands' },
+                { id: 'opt_3', text: 'Opening something' },
+                { id: 'opt_4', text: 'Sleeping' },
+              ],
+              correctAnswer: 'opt_1',
+              answerFormat: 'text',
+            }
+          );
+        }
+        
+        if (!hasRunQuestions) {
+          newQuestions.push(
+            {
+              id: 'q_run_1',
+              videoId: 'run_1',
+              categoryId: 'run',
+              question: 'What action is being performed?',
+              options: [
+                { id: 'opt_1', text: 'Running' },
+                { id: 'opt_2', text: 'Walking' },
+                { id: 'opt_3', text: 'Jumping' },
+                { id: 'opt_4', text: 'Sitting' },
+              ],
+              correctAnswer: 'opt_1',
+              answerFormat: 'text',
+            },
+            {
+              id: 'q_run_2',
+              videoId: 'run_2',
+              categoryId: 'run',
+              question: 'What is this character doing?',
+              options: [
+                { id: 'opt_1', text: 'Running fast' },
+                { id: 'opt_2', text: 'Sleeping' },
+                { id: 'opt_3', text: 'Eating' },
+                { id: 'opt_4', text: 'Drawing' },
+              ],
+              correctAnswer: 'opt_1',
+              answerFormat: 'text',
+            }
+          );
+        }
+        
+        if (!hasWashQuestions) {
+          newQuestions.push(
+            {
+              id: 'q_wash_1',
+              videoId: 'wash_1',
+              categoryId: 'wash',
+              question: 'What action is being performed?',
+              options: [
+                { id: 'opt_1', text: 'Washing' },
+                { id: 'opt_2', text: 'Drying' },
+                { id: 'opt_3', text: 'Cooking' },
+                { id: 'opt_4', text: 'Sleeping' },
+              ],
+              correctAnswer: 'opt_1',
+              answerFormat: 'text',
+            },
+            {
+              id: 'q_wash_2',
+              videoId: 'wash_2',
+              categoryId: 'wash',
+              question: 'What is this character doing?',
+              options: [
+                { id: 'opt_1', text: 'Washing hands' },
+                { id: 'opt_2', text: 'Playing games' },
+                { id: 'opt_3', text: 'Eating food' },
+                { id: 'opt_4', text: 'Sleeping' },
+              ],
+              correctAnswer: 'opt_1',
+              answerFormat: 'text',
+            }
+          );
+        }
+        
+        if (newQuestions.length > 0) {
+          questions.push(...newQuestions);
+          await AsyncStorage.setItem(STORAGE_KEYS.QUESTIONS, JSON.stringify(questions));
+          console.log('✅ Added', newQuestions.length, 'new questions to storage');
+        } else {
+          console.log('⚠️ All new questions already exist, skipping');
+        }
+      } else {
+        console.log('❌ No questions data found in storage');
+      }
+
+      console.log('🎉 Successfully completed migration v8 to v9');
+    } catch (error) {
+      console.error('💥 Error during v8 to v9 migration:', error);
+    }
+  }
+
+  // Migration: Add oldman videos to all categories for v9 to v10
+  private async migrate_v9_to_v10_addOldmanVideos(): Promise<void> {
+    try {
+      console.log('🔄 Starting migration v9 to v10: Adding oldman videos...');
+      
+      // Get existing videos
+      const videosRaw = await AsyncStorage.getItem(STORAGE_KEYS.VIDEOS);
+      if (videosRaw) {
+        const videos: Video[] = JSON.parse(videosRaw);
+        console.log('🎬 Current video count:', videos.length);
+        
+        // Check if oldman videos already exist
+        const hasOldmanVideos = videos.some(video => video.title === 'Oldman');
+        console.log('👴 Oldman videos exist?', hasOldmanVideos);
+        
+        if (!hasOldmanVideos) {
+          const oldmanVideos: Video[] = [
+            // Eat category oldman video
+            { id: 'eat_6', categoryId: 'eat', title: 'Oldman', filename: 'Eat/oldman_eating.mp4', duration: 5, order: 6 },
+            
+            // Drink category oldman video
+            { id: 'drink_6', categoryId: 'drink', title: 'Oldman', filename: 'Drink/oldman_drinking.mp4', duration: 5, order: 6 },
+            
+            // Sleep category oldman video
+            { id: 'sleep_6', categoryId: 'sleep', title: 'Oldman', filename: 'Sleep/oldman_sleeping.mp4', duration: 5, order: 6 },
+            
+            // Open category oldman video
+            { id: 'open_6', categoryId: 'open', title: 'Oldman', filename: 'Open/oldman_opening.mp4', duration: 5, order: 6 },
+            
+            // Draw category oldman video
+            { id: 'draw_6', categoryId: 'draw', title: 'Oldman', filename: 'Draw/oldman_drawing.mp4', duration: 5, order: 6 },
+            
+            // Play category oldman video
+            { id: 'play_6', categoryId: 'play', title: 'Oldman', filename: 'Play/oldman_playing.mp4', duration: 5, order: 6 },
+            
+            // Blow category oldman video
+            { id: 'blow_6', categoryId: 'blow', title: 'Oldman', filename: 'Blow/oldman_blowing.mp4', duration: 5, order: 6 },
+            
+            // Clap category oldman video
+            { id: 'clap_6', categoryId: 'clap', title: 'Oldman', filename: 'Clap/oldman_clapping.mp4', duration: 5, order: 6 },
+            
+            // Run category oldman video
+            { id: 'run_6', categoryId: 'run', title: 'Oldman', filename: 'Run/oldman_running.mp4', duration: 5, order: 6 },
+            
+            // Wash category oldman video
+            { id: 'wash_6', categoryId: 'wash', title: 'Oldman', filename: 'Wash/oldman_washing.mp4', duration: 5, order: 6 },
+          ];
+          
+          videos.push(...oldmanVideos);
+          await AsyncStorage.setItem(STORAGE_KEYS.VIDEOS, JSON.stringify(videos));
+          console.log('✅ Added', oldmanVideos.length, 'oldman videos to storage');
+        } else {
+          console.log('⚠️ Oldman videos already exist, skipping');
+        }
+      } else {
+        console.log('❌ No videos data found in storage');
+      }
+
+      // Update category video counts
+      const categoriesRaw = await AsyncStorage.getItem(STORAGE_KEYS.CATEGORIES);
+      if (categoriesRaw) {
+        const categories: Category[] = JSON.parse(categoriesRaw);
+        let categoriesChanged = false;
+        
+        for (const category of categories) {
+          if (category.videoCount === 5) {
+            category.videoCount = 6;
+            categoriesChanged = true;
+          }
+        }
+        
+        if (categoriesChanged) {
+          await AsyncStorage.setItem(STORAGE_KEYS.CATEGORIES, JSON.stringify(categories));
+          console.log('✅ Updated category video counts to 6');
+        }
+      }
+
+      console.log('🎉 Successfully completed migration v9 to v10');
+    } catch (error) {
+      console.error('💥 Error during v9 to v10 migration:', error);
+    }
+  }
+
+
   // DEBUG: Force add Play category (call this manually if migration isn't working)
   async forceAddPlayCategory(): Promise<void> {
     console.log('🚀 Force adding Play category...');
@@ -299,12 +704,16 @@ class DataService {
 
     // Sample categories - all unlocked from start
     const categories: Category[] = [
-      { id: 'eat',   name: 'Eat',   description: 'Learn about eating actions',   icon: 'restaurant',      videoCount: 5, unlocked: true  },
-      { id: 'drink', name: 'Drink', description: 'Learn about drinking actions', icon: 'water',           videoCount: 5, unlocked: true  },
-      { id: 'sleep', name: 'Sleep', description: 'Learn about sleeping actions', icon: 'bed',             videoCount: 5, unlocked: true },
-      { id: 'open',  name: 'Open',  description: 'Learn about opening actions',  icon: 'open',            videoCount: 5, unlocked: true },
-      { id: 'draw',  name: 'Draw',  description: 'Learn about drawing actions',  icon: 'brush',           videoCount: 5, unlocked: true },
-      { id: 'play',  name: 'Play',  description: 'Learn about playing actions',  icon: 'game-controller', videoCount: 5, unlocked: true },
+      { id: 'eat',   name: 'Eat',   description: 'Learn about eating actions',   icon: 'restaurant',      videoCount: 6, unlocked: true  },
+      { id: 'drink', name: 'Drink', description: 'Learn about drinking actions', icon: 'water',           videoCount: 6, unlocked: true  },
+      { id: 'sleep', name: 'Sleep', description: 'Learn about sleeping actions', icon: 'bed',             videoCount: 6, unlocked: true },
+      { id: 'open',  name: 'Open',  description: 'Learn about opening actions',  icon: 'open',            videoCount: 6, unlocked: true },
+      { id: 'draw',  name: 'Draw',  description: 'Learn about drawing actions',  icon: 'brush',           videoCount: 6, unlocked: true },
+      { id: 'play',  name: 'Play',  description: 'Learn about playing actions',  icon: 'game-controller', videoCount: 6, unlocked: true },
+      { id: 'blow',  name: 'Blow',  description: 'Learn about blowing actions',  icon: 'wind',            videoCount: 6, unlocked: true },
+      { id: 'clap',  name: 'Clap',  description: 'Learn about clapping actions', icon: 'hand-left',       videoCount: 6, unlocked: true },
+      { id: 'run',   name: 'Run',   description: 'Learn about running actions',  icon: 'walk',            videoCount: 6, unlocked: true },
+      { id: 'wash',  name: 'Wash',  description: 'Learn about washing actions',  icon: 'water',           videoCount: 6, unlocked: true },
     ];
 
     // Sample videos using actual uploaded files
@@ -314,21 +723,24 @@ class DataService {
       { id: 'eat_2', categoryId: 'eat', title: 'Cat', filename: 'Eat/cat_eating.mp4', duration: 5, order: 2 },
       { id: 'eat_3', categoryId: 'eat', title: 'Girl', filename: 'Eat/girl_eating.mp4', duration: 5, order: 3 },
       { id: 'eat_4', categoryId: 'eat', title: 'Boy', filename: 'Eat/boy_eating.mp4', duration: 5, order: 4 },
-      { id: 'eat_5', categoryId: 'eat', title: 'Woman', filename: 'Eat/woman_eating.mp4', duration: 5, order: 5 },
+      { id: 'eat_5', categoryId: 'eat', title: 'Oldman', filename: 'Eat/oldman_eating.mp4', duration: 5, order: 5 },
+      { id: 'eat_6', categoryId: 'eat', title: 'Woman', filename: 'Eat/woman_eating.mp4', duration: 5, order: 6 },
       
       // Drink category videos
       { id: 'drink_1', categoryId: 'drink', title: 'Dog', filename: 'Drink/dog_drinking.mp4', duration: 5, order: 1 },
       { id: 'drink_2', categoryId: 'drink', title: 'Cat', filename: 'Drink/cat_drinking.mp4', duration: 5, order: 2 },
       { id: 'drink_3', categoryId: 'drink', title: 'Girl', filename: 'Drink/girl_drinking.mp4', duration: 5, order: 3 },
       { id: 'drink_4', categoryId: 'drink', title: 'Boy', filename: 'Drink/boy_drinking.mp4', duration: 5, order: 4 },
-      { id: 'drink_5', categoryId: 'drink', title: 'Woman', filename: 'Drink/woman_drinking.mp4', duration: 5, order: 5 },
+      { id: 'drink_5', categoryId: 'drink', title: 'Oldman', filename: 'Drink/oldman_drinking.mp4', duration: 5, order: 5 },
+      { id: 'drink_6', categoryId: 'drink', title: 'Woman', filename: 'Drink/woman_drinking.mp4', duration: 5, order: 6 },
       
       // Sleep category videos
       { id: 'sleep_1', categoryId: 'sleep', title: 'Dog', filename: 'Sleep/dog_sleeping.mp4', duration: 5, order: 1 },
       { id: 'sleep_2', categoryId: 'sleep', title: 'Cat', filename: 'Sleep/cat_sleeping.mp4', duration: 5, order: 2 },
       { id: 'sleep_3', categoryId: 'sleep', title: 'Girl', filename: 'Sleep/girl_sleeping.mp4', duration: 5, order: 3 },
       { id: 'sleep_4', categoryId: 'sleep', title: 'Boy', filename: 'Sleep/boy_sleeping.mp4', duration: 5, order: 4 },
-      { id: 'sleep_5', categoryId: 'sleep', title: 'Woman', filename: 'Sleep/woman_sleeping.mp4', duration: 5, order: 5 },
+      { id: 'sleep_5', categoryId: 'sleep', title: 'Oldman', filename: 'Sleep/oldman_sleeping.mp4', duration: 5, order: 5 },
+      { id: 'sleep_6', categoryId: 'sleep', title: 'Woman', filename: 'Sleep/woman_sleeping.mp4', duration: 5, order: 6 },
       
       // Open category videos
       { id: 'open_1', categoryId: 'open', title: 'Dog', filename: 'Open/dog_opening.mp4', duration: 5, order: 1 },
@@ -350,6 +762,34 @@ class DataService {
       { id: 'play_3', categoryId: 'play', title: 'Girl', filename: 'Play/girl_playing.mp4', duration: 5, order: 3 },
       { id: 'play_4', categoryId: 'play', title: 'Boy', filename: 'Play/boy_playing.mp4', duration: 5, order: 4 },
       { id: 'play_5', categoryId: 'play', title: 'Woman', filename: 'Play/woman_playing.mp4', duration: 5, order: 5 },
+      
+      // Blow category videos
+      { id: 'blow_1', categoryId: 'blow', title: 'Dog', filename: 'Blow/dog_blowing.mp4', duration: 5, order: 1 },
+      { id: 'blow_2', categoryId: 'blow', title: 'Cat', filename: 'Blow/cat_blowing.mp4', duration: 5, order: 2 },
+      { id: 'blow_3', categoryId: 'blow', title: 'Girl', filename: 'Blow/girl_blowing.mp4', duration: 5, order: 3 },
+      { id: 'blow_4', categoryId: 'blow', title: 'Boy', filename: 'Blow/boy_blowing.mp4', duration: 5, order: 4 },
+      { id: 'blow_5', categoryId: 'blow', title: 'Woman', filename: 'Blow/woman_blowing.mp4', duration: 5, order: 5 },
+      
+      // Clap category videos
+      { id: 'clap_1', categoryId: 'clap', title: 'Dog', filename: 'Clap/dog_clapping.mp4', duration: 5, order: 1 },
+      { id: 'clap_2', categoryId: 'clap', title: 'Cat', filename: 'Clap/cat_clapping.mp4', duration: 5, order: 2 },
+      { id: 'clap_3', categoryId: 'clap', title: 'Girl', filename: 'Clap/girl_clapping.mp4', duration: 5, order: 3 },
+      { id: 'clap_4', categoryId: 'clap', title: 'Boy', filename: 'Clap/boy_clapping.mp4', duration: 5, order: 4 },
+      { id: 'clap_5', categoryId: 'clap', title: 'Woman', filename: 'Clap/woman_clapping.mp4', duration: 5, order: 5 },
+      
+      // Run category videos
+      { id: 'run_1', categoryId: 'run', title: 'Dog', filename: 'Run/dog_running.mp4', duration: 5, order: 1 },
+      { id: 'run_2', categoryId: 'run', title: 'Cat', filename: 'Run/cat_running.mp4', duration: 5, order: 2 },
+      { id: 'run_3', categoryId: 'run', title: 'Girl', filename: 'Run/girl_running.mp4', duration: 5, order: 3 },
+      { id: 'run_4', categoryId: 'run', title: 'Boy', filename: 'Run/boy_running.mp4', duration: 5, order: 4 },
+      { id: 'run_5', categoryId: 'run', title: 'Woman', filename: 'Run/woman_running.mp4', duration: 5, order: 5 },
+      
+      // Wash category videos
+      { id: 'wash_1', categoryId: 'wash', title: 'Dog', filename: 'Wash/dog_washing.mp4', duration: 5, order: 1 },
+      { id: 'wash_2', categoryId: 'wash', title: 'Cat', filename: 'Wash/cat_washing.mp4', duration: 5, order: 2 },
+      { id: 'wash_3', categoryId: 'wash', title: 'Girl', filename: 'Wash/girl_washing.mp4', duration: 5, order: 3 },
+      { id: 'wash_4', categoryId: 'wash', title: 'Boy', filename: 'Wash/boy_washing.mp4', duration: 5, order: 4 },
+      { id: 'wash_5', categoryId: 'wash', title: 'Woman', filename: 'Wash/woman_washing.mp4', duration: 5, order: 5 },
     ];
 
     // Sample questions - multiple questions per category for better quiz experience
@@ -517,6 +957,126 @@ class DataService {
         correctAnswer: 'opt_1',
         answerFormat: 'text',
       },
+
+      // Blow category questions
+      {
+        id: 'q_blow_1',
+        videoId: 'blow_1',
+        categoryId: 'blow',
+        question: 'What action is being performed?',
+        options: [
+          { id: 'opt_1', text: 'Blowing' },
+          { id: 'opt_2', text: 'Clapping' },
+          { id: 'opt_3', text: 'Running' },
+          { id: 'opt_4', text: 'Washing' },
+        ],
+        correctAnswer: 'opt_1',
+        answerFormat: 'text',
+      },
+      {
+        id: 'q_blow_2',
+        videoId: 'blow_2',
+        categoryId: 'blow',
+        question: 'What is this character doing?',
+        options: [
+          { id: 'opt_1', text: 'Blowing air' },
+          { id: 'opt_2', text: 'Drinking water' },
+          { id: 'opt_3', text: 'Eating food' },
+          { id: 'opt_4', text: 'Sleeping' },
+        ],
+        correctAnswer: 'opt_1',
+        answerFormat: 'text',
+      },
+
+      // Clap category questions
+      {
+        id: 'q_clap_1',
+        videoId: 'clap_1',
+        categoryId: 'clap',
+        question: 'What action is being performed?',
+        options: [
+          { id: 'opt_1', text: 'Clapping' },
+          { id: 'opt_2', text: 'Blowing' },
+          { id: 'opt_3', text: 'Running' },
+          { id: 'opt_4', text: 'Drawing' },
+        ],
+        correctAnswer: 'opt_1',
+        answerFormat: 'text',
+      },
+      {
+        id: 'q_clap_2',
+        videoId: 'clap_2',
+        categoryId: 'clap',
+        question: 'What is this character doing?',
+        options: [
+          { id: 'opt_1', text: 'Clapping hands' },
+          { id: 'opt_2', text: 'Washing hands' },
+          { id: 'opt_3', text: 'Opening something' },
+          { id: 'opt_4', text: 'Sleeping' },
+        ],
+        correctAnswer: 'opt_1',
+        answerFormat: 'text',
+      },
+
+      // Run category questions
+      {
+        id: 'q_run_1',
+        videoId: 'run_1',
+        categoryId: 'run',
+        question: 'What action is being performed?',
+        options: [
+          { id: 'opt_1', text: 'Running' },
+          { id: 'opt_2', text: 'Walking' },
+          { id: 'opt_3', text: 'Jumping' },
+          { id: 'opt_4', text: 'Sitting' },
+        ],
+        correctAnswer: 'opt_1',
+        answerFormat: 'text',
+      },
+      {
+        id: 'q_run_2',
+        videoId: 'run_2',
+        categoryId: 'run',
+        question: 'What is this character doing?',
+        options: [
+          { id: 'opt_1', text: 'Running fast' },
+          { id: 'opt_2', text: 'Sleeping' },
+          { id: 'opt_3', text: 'Eating' },
+          { id: 'opt_4', text: 'Drawing' },
+        ],
+        correctAnswer: 'opt_1',
+        answerFormat: 'text',
+      },
+
+      // Wash category questions
+      {
+        id: 'q_wash_1',
+        videoId: 'wash_1',
+        categoryId: 'wash',
+        question: 'What action is being performed?',
+        options: [
+          { id: 'opt_1', text: 'Washing' },
+          { id: 'opt_2', text: 'Drying' },
+          { id: 'opt_3', text: 'Cooking' },
+          { id: 'opt_4', text: 'Sleeping' },
+        ],
+        correctAnswer: 'opt_1',
+        answerFormat: 'text',
+      },
+      {
+        id: 'q_wash_2',
+        videoId: 'wash_2',
+        categoryId: 'wash',
+        question: 'What is this character doing?',
+        options: [
+          { id: 'opt_1', text: 'Washing hands' },
+          { id: 'opt_2', text: 'Playing games' },
+          { id: 'opt_3', text: 'Eating food' },
+          { id: 'opt_4', text: 'Sleeping' },
+        ],
+        correctAnswer: 'opt_1',
+        answerFormat: 'text',
+      },
     ];
 
     // Save to AsyncStorage
@@ -658,6 +1218,7 @@ class DataService {
         videosWatched: [],
         quizAttempts: [attempt],
         hasCompletedSequence: false,
+        currentVideoIndex: 0,
       };
       await this.updateUserProgress(newProgress);
     }
