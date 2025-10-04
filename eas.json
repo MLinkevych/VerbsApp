@@ -3,22 +3,26 @@
     "version": ">= 5.9.0"
   },
   "build": {
-    "testingVerbs": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleDebug"
       }
     },
-    "testingVerbs2": {
+    "preview": {
+      "distribution": "internal",
       "android": {
+        "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
       }
     },
-    "testingVerbs3": {
-      "developmentClient": true
-    },
-    "testingVerbs4": {
-      "distribution": "internal"
-    },
-    "production": {}
+    "production": {
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      }
+    }
   }
 }

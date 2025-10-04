@@ -1,0 +1,11 @@
+node_modules/.cache
+.expo
+.git
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+android/app/build
+ios/build
+*.apk
+*.ipa
