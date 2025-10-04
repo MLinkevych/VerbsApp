@@ -33,6 +33,44 @@ interface Props {
 
 const { width, height } = Dimensions.get('window');
 
+// Responsive dimensions for different screen sizes
+const isTablet = width >= 768;
+const isLargeScreen = width >= 1024;
+
+// Calculate responsive dimensions
+const getResponsiveDimensions = () => {
+  if (isLargeScreen) {
+    // Large tablets (9" and above)
+    return {
+      videoWidth: width * 0.6,
+      videoHeight: width * 0.45,
+      cardSize: 200,
+      controlButtonSize: 120,
+      modalControlsRight: 60,
+    };
+  } else if (isTablet) {
+    // Medium tablets
+    return {
+      videoWidth: width * 0.7,
+      videoHeight: width * 0.5,
+      cardSize: 180,
+      controlButtonSize: 110,
+      modalControlsRight: 50,
+    };
+  } else {
+    // Phones
+    return {
+      videoWidth: width * 0.7,
+      videoHeight: width * 0.6,
+      cardSize: 160,
+      controlButtonSize: 100,
+      modalControlsRight: 50,
+    };
+  }
+};
+
+const responsiveDimensions = getResponsiveDimensions();
+
 // Character mapping no longer needed - new video naming convention uses audio character names directly
 
 // Audio file mappings
@@ -1357,7 +1395,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#fff',
-    padding: 20,
+    padding: isTablet ? 30 : 20,
     borderBottomWidth: 1,
     borderBottomColor: '#e9ecef',
   },
@@ -1378,15 +1416,15 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   videosHeaderTitle: {
-    fontSize: 24,
+    fontSize: isTablet ? 28 : 24,
     fontWeight: 'bold',
     color: '#333',
     textAlign: 'center',
   },
   bottomControls: {
     backgroundColor: '#fff',
-    paddingVertical: 20,
-    paddingHorizontal: 20,
+    paddingVertical: isTablet ? 30 : 20,
+    paddingHorizontal: isTablet ? 40 : 20,
     borderTopWidth: 1,
     borderTopColor: '#e9ecef',
   },
@@ -1401,7 +1439,7 @@ const styles = StyleSheet.create({
   },
   mainControlText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: isTablet ? 22 : 18,
     fontWeight: '600',
   },
   // quizButton: {
@@ -1450,21 +1488,21 @@ const styles = StyleSheet.create({
   },
   learningCardsContainer: {
     position: 'absolute',
-    left: 40,
+    left: isTablet ? 60 : 40,
     top: '40%',
     transform: [{ translateY: -100 }],
     flexDirection: 'column',
     alignItems: 'center',
     zIndex: 10,
-    gap: 40,
+    gap: isTablet ? 50 : 40,
   },
   learningCardsContainerLevel1: {
     top: '50%',
-    transform: [{ translateY: -80 }], // Center Level 1 cards vertically
+    transform: [{ translateY: isTablet ? -100 : -80 }], // Center Level 1 cards vertically
   },
   learningCard: {
-    width: 160,  // ← Increased from 80 to 120
-    height: 160, // ← Increased from 80 to 120
+    width: responsiveDimensions.cardSize,
+    height: responsiveDimensions.cardSize,
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -1473,8 +1511,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   modalVideo: {
-    width: width * 0.7,
-    height: width * 0.6,
+    width: responsiveDimensions.videoWidth,
+    height: responsiveDimensions.videoHeight,
     zIndex: 1,
   },
   videoOverlay: {
@@ -1530,16 +1568,16 @@ const styles = StyleSheet.create({
   },
   modalControls: {
     position: 'absolute',
-    right: 50,
+    right: responsiveDimensions.modalControlsRight,
     top: '40%',
-    marginTop: -140,
+    marginTop: isTablet ? -160 : -140,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
+    padding: isTablet ? 15 : 10,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     borderRadius: 12,
-    gap: 10,
+    gap: isTablet ? 15 : 10,
     zIndex: 1000,
   },
   modalControlButton: {
@@ -1549,8 +1587,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 8,
-    width: 100,
-    height: 100,
+    width: responsiveDimensions.controlButtonSize,
+    height: responsiveDimensions.controlButtonSize,
     justifyContent: 'center',
     elevation: 5,
     shadowColor: '#000',
@@ -1590,14 +1628,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    padding: 20,
+    justifyContent: isTablet ? 'flex-start' : 'space-around',
+    padding: isTablet ? 30 : 20,
     backgroundColor: '#f8f9fa',
+    paddingHorizontal: isTablet ? 40 : 20,
   },
   videoGridItem: {
-    width: '45%',
+    width: isLargeScreen ? '30%' : isTablet ? '35%' : '45%',
     borderRadius: 16,
     marginBottom: 20,
+    marginRight: isTablet ? 20 : 0,
     backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
